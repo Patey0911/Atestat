@@ -1,0 +1,182 @@
+1. C++ ruleaza mai rapid decat Java, poate fi folosit la vision
+2. ma3s Encoders sunt mai bune pentru ca sunt optical encoders.
+3. https://www.usdigital.com/products/encoders
+4. https://www.usdigital.com/products/encoders/incremental/rotary/kit/E4T
+5. https://bitbucket.org/PeterTheEarthling/version-4.3/src/master/ftc_app-master/TeamCode/src/main/java/teamcode/
+6. https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
+7. https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit
+8. https://www.reddit.com/r/FTC/comments/bp35go/11115_cad/
+9. https://i.imgur.com/Z41H1v9.jpg
+10. https://pmtischler-ftc-app.readthedocs.io/en/latest/tutorials/pid_control.html
+11. https://pmtischler-ftc-app.readthedocs.io/en/latest/tutorials/mecanum.html
+12. https://html5gamepad.com/
+
+https://www.bershka.com/ro/en/men/collection/jeans/super-skinny-jeans-c1010193238p102100043.html?colorId=250
+https://www.zara.com/ro/ro/pulover-cu-guler-%C3%AEntors-p00693322.html?v1=13382510&v2=1282836
+
+
+
+https://codepen.io/kazed972/pen/mQKzyM
+https://tympanus.net/Tutorials/CustomCursors/index3.html
+https://codepen.io/NitinChotia/pen/bQwyoE
+
+
+IDEI PENTRU VIDEO: 
+1. De intrebat fiecare persoana ce obiect ar lua.
+2. La obiectele mari/ingenioase de opus un video de maxim 3 secunde, iar cele mici, poze.
+3. Text la inceput.
+4. Fazele alea cu instagram.
+5. Putem sa punem si niste cadre cu robotul
+6. Si la final intrebarile
+
+AlphaBit este o echipa care face parte din programul FIRST Tech Challange din Romania in Petrosani,
+pasionata de robotica si de invatatura de la Colegiul National "Mihai Eminescu" Petrosani. 
+
+https://ro.pinterest.com/pin/610519293212930092/
+
+BRD FTC Timisoara
+Regionals Event Winning
+Alliance 2nd Place
+
+
+
+http://www.revrobotics.com/rev-39-1224/
+
+
+
+DE DISCUTAT - SEDINTA MARTI(22.07.2019) - ROBOTICA.
+
+- De adaugat cele 4 roluri.
+(4 (nu doar de a anunta timpul ci de a crea un mod de lucru).
+FACILITATOR (o persoana care invita membrii la conversatie, “Tu ce parere ai despre asta?”).
+GREFIER (persoana care noteaza deciziile).
+DECISION DRIVER.
+)
+- Intalniri cu membrii nu doar in cadrul roboticii. 
+- Trello (liste cu obiectivele noaste).
+- Trebuie sa eficientizam timpul, nu trebuie pierduta vremea. Sa limitam sedintele cu un dead-line.
+- Competitia incepe din momentul in care s-a publicat regulamentul. Fiecare membru este obligat sa stie regulamentul din acest moment. Peste o saptamana o sa primiti intrebari din el. In cazul in care sunt nelamuriri, ne puteti contacta.
+- Nu trebuie lasate lucruri pe sfarsitul competitiei, nu o sa mai avem timp sa le facem. O luna inainte de ficare competitie o sa fie dedicata testelor.
+- Sa fim realisti, sa nu avem senzatia ca putem face ceva imposibil.
+- Fiecare membru este egal in echipa.
+- Fara frica de a gresi, greselile trebuie discutate. “E ok daca gresesti si noi am gresit”, 
+- O sa fie stabilite in fiecare saptamana diferite milestone-uri/task-uri. 
+- PENTRU TEHNIC: Us.misumi.ec.com //  Chambrelan.com // USDigital
+- Dupa o competitive trebuire sa plecam cu idea ca am dat tot ce am avut mai bun, am lucrat la capacitate maxime si ca la anu` ne putem intrece. Exact asta vrem sa facem pentru anul viitor.
+- De intrebat persoanele “ce te motiveaza pe tine”.
+- Un nou sistem: "Membrul al saptamanii" (pentru motivatie).
+
+
+
+
+
+
+
+https://throwbin.io/n3qNtGt
+
+
+
+
+
+
+
+
+
+
+@Override
+    public void runOpMode() {
+        el = hardwareMap.get(AnalogInput.class, "el");
+        ex = hardwareMap.get(AnalogInput.class, "ex");
+        er = hardwareMap.get(AnalogInput.class, "er");
+        lf = hardwareMap.get(DcMotor.class, "lf");
+        lr = hardwareMap.get(DcMotor.class, "lr");
+        rf = hardwareMap.get(DcMotor.class, "rf");
+        rr = hardwareMap.get(DcMotor.class, "rr");
+        tip = hardwareMap.get(Servo.class, "tip");
+        tip.setPosition(0.4);
+        rf.setDirection(DcMotor.Direction.REVERSE);
+        rr.setDirection(DcMotor.Direction.REVERSE);
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+        double a = 1;
+        double leftEncoder = 0;
+        double lTurns = 0;
+        double lStart = 0;
+        double rightEncoder = 0;
+        double rTurns = 0;
+        double rStart = 0;
+        double xEncoder = 0;
+        double xTurns = 0;
+        double xStart = 0;
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+            // get starting value
+            if(a == 1){
+                lStart = el.getVoltage();
+                rStart = er.getVoltage();
+                xStart = ex.getVoltage();
+                a = 0;
+            }
+            //define previous and current encoder volts
+            double lPrevious = leftEncoder;
+            double rPrevious = rightEncoder;
+            double xPrevious = xEncoder;
+            leftEncoder = (el.getVoltage() - lStart);
+            rightEncoder =(3.3 - (er.getVoltage() - rStart));
+            xEncoder = (ex.getVoltage() - xStart);
+            //fix negative numbers
+there is the init loop and first half
+if(leftEncoder < 0){
+                leftEncoder = 3.3 + leftEncoder;
+            }
+            if(rightEncoder < 0){
+                rightEncoder = 3.3 + rightEncoder;
+            }
+            if(xEncoder < 0){
+                xEncoder = 3.3 + xEncoder;
+            }
+            //begin left to inches
+            if((lPrevious - leftEncoder)> 1.5){
+                lTurns = lTurns + 1;
+            }
+            if((leftEncoder- lPrevious)> 1.5){
+                lTurns = lTurns - 1;
+            }
+            double leftInches = (6.14 * (lTurns +(leftEncoder/3.3)));
+
+            //begin right to inches
+            if((rPrevious - rightEncoder)> 1.5){
+                rTurns = rTurns + 1;
+            }
+            if((rightEncoder- rPrevious)> 1.5){
+                rTurns = rTurns - 1;
+            }
+            double rightInches = (6.14 * (rTurns +(rightEncoder/3.3)));
+            //begin x inches
+             if((xPrevious - xEncoder)> 1.5){
+                xTurns = xTurns + 1;
+            }
+            if((xEncoder - xPrevious)> 1.5){
+                xTurns = xTurns - 1;
+            }
+            double xInches = (6.14 *(xTurns + (xEncoder/ 3.3)));
+
+            //angle equation
+            double robotAngle = ((leftInches - rightInches)/(12.1));
+            if(robotAngle>6.14){
+                robotAngle=robotAngle-6.14;
+            }
+            if(robotAngle<0){
+                robotAngle=robotAngle+6.14;
+            }
+
+
+
+
+
+
+            Membrii: Ichim Bogdan, Istvan Huszar, Lavinia Popescu, Bogdan Matei Mihaly, Alexia Humel, Denisa Miklos, Paşcu Sergiu, Alexia Tudor, Eduard Kontos, Deliana Dinu, Botar Carla, Bucea Tudor, Dragos Catan, Tavi Oros
+Mentori: Gabi Muntean, Rolland Szedlacsek, Ciontescu Daniela
